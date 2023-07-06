@@ -44,7 +44,37 @@ Following the implementation of these measures, no malicious activity was detect
 
 ## Metrics Analysis
 
-We gathered and compared metrics from both the insecure and secure environment over a 24-hour period.
+We gathered and compared metrics from both the insecure and secure environment over a 24-hour period.<br/>
+Before Hardening / Security Controls<br/>
+Start Time 2023-07-04 12:45 AM<br/>
+Stop Time 2023-07-05 12:45 AM
+
+| Metric                   | Count
+| ------------------------ | -----
+| SecurityEvent (Windows VM)            | 4358
+| Syslog (Linux VM)                   | 2345
+| SecurityAlert (Microsoft Defender for Cloud            | 6
+| SecurityIncident (Sentinel Incidents)        | 73
+| NSG Inbound Malicious Flows Allowed | 103
+
+<br/>
+
+
+After Hardening / Security Controls<br/>
+Start Time 2023-07-05 4:15 PM<br/>
+Stop Time	2023-07-06 4:15 PM
+
+
+| Metric                   | Count
+| ------------------------ | -----
+| SecurityEvent (Windows VM)            | 2364
+| Syslog (Linux VM)                   | 24
+| SecurityAlert (Microsoft Defender for Cloud            | 0
+| SecurityIncident (Sentinel Incidents)        | 0
+| NSG Inbound Malicious Flows Allowed | 0
+
+<br/>
+
 
 ## Incident Handling Using NIST 800.61r2 Guidelines
 
