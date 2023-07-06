@@ -1,147 +1,59 @@
-# Revamping Cybersecurity with Azure: An Exploration into Honeynets and Security Operations Center (SOC)
-![Cloud Honeynet / SOC](https://i.imgur.com/7s0rHfn.png)
+# Project Title: Enhancing Cybersecurity with Azure: Real-Time Cyberattack Simulation and Analysis
 
-## Overview
+![Cloud Honeynet / SOC](INSERT_URL)
 
- This project showcases the orchestration of a compact honeynet within Microsoft Azure, luring real-time cyber threats from a global landscape. The primary aim is to exemplify ideal security protocols, response strategies to incidents, and the benefits of enhancing your cyber environment. We'll do this by deliberately deploying unprotected virtual machines visible to the public internet to bait potential hackers into our setup. The subsequent step involves funneling some log sources into the Log Analytics Workspace, after which Microsoft Sentinel will be used to build attack maps, raise alerts, and manage incidents. This process will be crucial in demonstrating the effects of hardening your cyber environment, based on the incidents recorded from a 24-hour surveillance period.
+## Project Overview
 
-## Azure Components Employed
+This project presents an Azure-powered honeynet simulation designed to attract and analyze real-time cyber threats from around the globe. The primary goal is to illustrate robust security strategies, effective incident response techniques, and the profound benefits of an enhanced cybersecurity posture. 
+
+To achieve this, we have purposely set up vulnerable virtual machines exposed to the public internet, acting as bait for potential attackers. Following the integration of log sources into the Log Analytics Workspace, we utilize Microsoft Sentinel to generate attack maps, alerts, and incident reports. This approach allows us to measure the impact of security hardening based on incidents recorded during a 24-hour window.
+
+## Azure Resources Deployed
 
 - Azure Virtual Network (VNet)
 - Azure Network Security Group (NSG)
 - Virtual Machines (2x Windows, 1x Linux)
-- Log Analytics Workspace incorporating Kusto Query Language (KQL) Queries
-- Azure Key Vault 
-- Azure Storage Account 
-- Microsoft Sentinel 
-- Microsoft Defender for Cloud 
+- Log Analytics Workspace with Kusto Query Language (KQL) Queries
+- Azure Key Vault
+- Azure Storage Account
+- Microsoft Sentinel
+- Microsoft Defender for Cloud
 
+## Pre-Hardening Architecture
 
-## Initial Architecture
-![Architecture Diagram](https://i.imgur.com/c2E0AtK.png)
+During the initial phase, we deployed all resources with the intent of attracting public internet traffic. The Virtual Machines, with both their Network Security Groups (NSGs) and built-in firewalls open, provided unrestricted access from any source. Concurrently, other resources such as storage accounts and databases were set up with public endpoints, neglecting Private Endpoints for enhanced security. These resources were exposed to the public for a day, generating the subsequent attack maps.
 
- - In the initial phase of the project, resources were configured to entice interaction from the public internet. Virtual Machines had their Network Security Groups (NSGs) and inbuilt firewalls set to allow unobstructed access from all sources. Additionally, other resources like storage accounts and databases were made publicly accessible, devoid of any Private Endpoints for augmented security. These machines were then left exposed to the public for a full day to generate the attack maps detailed below. 
- <br />
- 
- <b>This attack map shows the number of incidents caused by leaving the Network Security Group (NSG) open. </b>
- 
-   ![NSG Allowed Inbound Malicious Flows](https://i.imgur.com/bNOtiKt.png)<br>
+![Architecture Diagram](INSERT_URL)
 
- <br />
- <br />
- 
- <b>This attack map demonstrates the incidents relating to syslog authentication failures on the Linux server. </b>
- 
-![Linux Syslog Auth Failures](https://i.imgur.com/nFR0Ehf.png)<br>
+Attack maps include:
 
- <br />
- <br />
- 
- <b>This attack map exhibits RDP and SMB failures on the Windows machine.</b>
- 
-![Windows RDP/SMB Auth Failures](https://i.imgur.com/4bylhdW.png)<br>
+- NSG Allowed Inbound Malicious Flows ![NSG Allowed Inbound Malicious Flows](INSERT_URL)
+- Linux Syslog Authentication Failures ![Linux Syslog Auth Failures](INSERT_URL)
+- Windows RDP/SMB Authentication Failures ![Windows RDP/SMB Auth Failures](INSERT_URL)
+- MSSQL Server Failures ![MSSQL](INSERT_URL)
 
- <br />
- <br />
- 
- <b>This attack map presents the failures encountered by the MSSQL server.</b>
- 
-![MSSQL](https://i.imgur.com/TYIlNVI.png)<br>
+## Post-Hardening Architecture
 
- <br />
- <br />
- 
- ## Post-Security Enhancement Architecture
+After analyzing incidents from the "Before" phase, we implemented rigorous security measures to bolster the environment's resilience against cyber threats. These improvements encompass:
 
-After documenting the incidents from the "Before" phase, the next step involved integrating robust security measures to improve the environment's resilience against cyber threats. The applied enhancements included:
+- NSGs: We strengthened the NSGs by allowing only traffic from my public IP address.
+- Built-in Firewalls: We configured the built-in firewalls on our virtual machines to deny access to unauthorized users.
+- Private Endpoints: We substituted the public endpoints of our Azure resources with Private Endpoints, restricting the accessibility of sensitive resources to the virtual network.
 
-- <b>Network Security Groups (NSGs)</b>: The NSGs were fortified by exclusively permitting traffic from my public IP address. All other traffic was blocked based on the newly set parameters.
+Following the implementation of these measures, no malicious activity was detected during the subsequent 24-hour monitoring period.
 
-- <b>Built-in Firewalls</b>: The firewalls within the virtual machines were configured to deny access to unauthorized users. 
+## Metrics Analysis
 
-- <b>Private Endpoints</b>: For additional Azure resources, public endpoints were replaced with Private Endpoints. This ensured the limited accessibility of sensitive resources, such as storage accounts and databases, to the virtual network alone.
+We gathered and compared metrics from both the insecure and secure environment over a 24-hour period.
 
-## Attack Maps After Hardening / Security Controls
+## Incident Handling Using NIST 800.61r2 Guidelines
 
-<br />
+For each simulated attack, we executed incident responses in alignment with the NIST SP 800-61 r2 guide.
 
-```After implementing the security measures, the map queries yielded no results, implying no instances of malicious activity during the 24-hour period post-hardening.```
-
- <br />
- 
-## Metrics Before and After Security Enhancements
-
-Before and after the security improvements, metrics were recorded for comparison over a 24-hour period:<br/>
-Before Hardening / Security Controls<br/>
-Start Time 2023-07-04 12:45 AM<br/>
-Stop Time 2023-07-05 12:45 AM
-
-| Metric                   | Count
-| ------------------------ | -----
-| SecurityEvent (Windows VM)            | 4358
-| Syslog (Linux VM)                   | 2345
-| SecurityAlert (Microsoft Defender for Cloud            | 6
-| SecurityIncident (Sentinel Incidents)        | 73
-| NSG Inbound Malicious Flows Allowed | 103
-
-<br/>
-
-
-After Hardening / Security Controls<br/>
-Start Time 2023-07-05 4:15 PM<br/>
-Stop Time	2023-07-06 4:15 PM
-
-
-| Metric                   | Count
-| ------------------------ | -----
-| SecurityEvent (Windows VM)            | 2364
-| Syslog (Linux VM)                   | 24
-| SecurityAlert (Microsoft Defender for Cloud            | 0
-| SecurityIncident (Sentinel Incidents)        | 0
-| NSG Inbound Malicious Flows Allowed | 0
-
-<br/>
-
-
-## Implementation of NIST 800.61r2 Computer Incident Handling Guide
-
-Every simulated attack was addressed following the recommendations of NIST SP 800-61 r2.
-
-![NIST 800.61](https://i.imgur.com/6PTG7c0l.png)
-
-Each organization will have policies related to an incident response that should be followed. This event is just a walkthrough for possible actions to take in the detection of malware on a workstation.  
-
-#### Preparation
-
-- The Azure lab was set up to ingest all of the logs into Log Analytics Workspace, Sentinel and Defender were configured, and alert rules were put in place.
-
-#### Detection & Analysis
-
-- Malware has been detected on a workstation with the potential to compromise the confidentiality, integrity, or availability of the system and data.
-- Assigned alert to an owner, set the severity to "High", and the status to "Active"
-- Identified the primary user account of the system and all systems affected.
-- A full scan of the system was conducted using up-to-date antivirus software to identify the malware.
-- Verified the authenticity of the alert as a "True Positive".
-- Sent notifications to appropriate personnel as required by the organization's communication policies.
-
-#### Containment, Eradication & Recovery
-
-- The infected system and any additional systems infected by the malware were quarantined.
-- If the malware was unable to be removed or the system sustained damage, the system would have been shut down and disconnected from the network.
-- Depending on organizational policies the affected systems could be restored known clean state, such as a system image or a clean installation of the operating system and applications. Or an up-to-date anti-virus solution could be used to clean the systems. 
-
-#### Post-Incident Activity
-
-- In this simulated case, an employee had downloaded a game that contained malware. 
-- All information was gathered and analyzed to determine the root cause, extent of damage, and effectiveness of the response. 
-- Report disseminated to all stakeholders.
-- Corrective actions are implemented to remediate the root cause.
-- And a lessons-learned review of the incident was conducted.
-
-<br />
+![NIST 800.61](INSERT_URL)
 
 ## Conclusion
 
-This project successfully designed a miniature honeynet within Microsoft Azure, integrating log sources into a Log Analytics workspace. Microsoft Sentinel was harnessed to generate alerts and manage incidents from the ingested logs. Metrics were assessed in the unsecure environment pre-security controls and post-implementation of these controls. The significant decline in security incidents post-enhancements underscores their effectiveness in protecting the environment.
+Through this project, we demonstrated how a honeynet, constructed within Microsoft Azure, could effectively track and analyze real-world cyber threats. Utilizing Microsoft Sentinel, we were able to create alerts and manage incidents based on the analyzed log data. The comparison of metrics before and after the implementation of security controls showcased their crucial role in maintaining a secure environment.
 
-However, it's essential to consider that with a higher utilization of network resources by regular users, there could have been an increase in security events and alerts within the 24-hour period post-security control implementation.
+It is important to note that with more frequent usage of the network resources, the number of security events and alerts within the 24-hour period post-implementation of security controls could potentially increase.
