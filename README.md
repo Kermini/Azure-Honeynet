@@ -1,4 +1,4 @@
-# Project Title: Enhancing Cybersecurity with Azure: Real-Time Cyberattack Simulation and Analysis
+# Enhancing Cybersecurity with Azure: Real-Time Cyberattack Simulation and Analysis
 
 ![Cloud Honeynet / SOC](INSERT_URL)
 
