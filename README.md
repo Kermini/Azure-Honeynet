@@ -1,7 +1,5 @@
 # Enhancing Cybersecurity with Azure: Real-Time Cyberattack Simulation and Analysis
 
-![Cloud Honeynet / SOC](INSERT_URL)
-
 ## Project Overview
 
 This project presents an Azure-powered honeynet simulation designed to attract and analyze real-time cyber threats from around the globe. The primary goal is to illustrate robust security strategies, effective incident response techniques, and the profound benefits of an enhanced cybersecurity posture. 
@@ -23,14 +21,16 @@ To achieve this, we have purposely set up vulnerable virtual machines exposed to
 
 During the initial phase, we deployed all resources with the intent of attracting public internet traffic. The Virtual Machines, with both their Network Security Groups (NSGs) and built-in firewalls open, provided unrestricted access from any source. Concurrently, other resources such as storage accounts and databases were set up with public endpoints, neglecting Private Endpoints for enhanced security. These resources were exposed to the public for a day, generating the subsequent attack maps.
 
-![Architecture Diagram](INSERT_URL)
-
 Attack maps include:
 
-- NSG Allowed Inbound Malicious Flows ![NSG Allowed Inbound Malicious Flows](INSERT_URL)
-- Linux Syslog Authentication Failures ![Linux Syslog Auth Failures](INSERT_URL)
-- Windows RDP/SMB Authentication Failures ![Windows RDP/SMB Auth Failures](INSERT_URL)
-- MSSQL Server Failures ![MSSQL](INSERT_URL)
+- NSG Allowed Inbound Malicious Flows ![image](https://github.com/Kermini/Azure-Honeynet/assets/138714889/94610c0b-e1d1-4a50-87a1-3d0490438a0d)
+
+- Linux Syslog Authentication Failures ![image](https://github.com/Kermini/Azure-Honeynet/assets/138714889/7dc328c2-4059-4d02-bb68-aa85dea7af00)
+
+- Windows RDP/SMB Authentication Failures ![image](https://github.com/Kermini/Azure-Honeynet/assets/138714889/5a6f7062-4c39-4e58-84d6-f425e2a84b4d)
+
+- MSSQL Server Failures ![image](https://github.com/Kermini/Azure-Honeynet/assets/138714889/d604f864-ef80-4229-840d-e13e76e85b25)
+
 
 ## Post-Hardening Architecture
 
@@ -50,7 +50,8 @@ We gathered and compared metrics from both the insecure and secure environment o
 
 For each simulated attack, we executed incident responses in alignment with the NIST SP 800-61 r2 guide.
 
-![NIST 800.61](INSERT_URL)
+![image](https://github.com/Kermini/Azure-Honeynet/assets/138714889/b57ac0b3-330c-49c6-a823-4520953b1464)
+
 
 ## Conclusion
 
